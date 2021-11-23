@@ -1,3 +1,26 @@
+.nmodal {}
+
+.nmodal.open .modal-overlay,
+.nmodal.open .modal-window {
+    opacity: 1;
+    z-index: 1000;
+}
+
+.vmodal.open .modal-window {
+    transform: translateY(100px);
+
+}
+
+.vmodal.open .modal-overlay {
+    background: rgba(0,0,0, .5;)
+}
+
+.modal-window, .modal-overlay {
+    opacity: 0;
+    z-index: -1;
+}
+
+
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -5,6 +28,7 @@
     right: 0;
     bottom: 0;
     background: rgba(0, 0, 0, .5);
+    transition: background .2s ease-in;
 
 
 }
@@ -13,7 +37,9 @@
     width: 400px;
     background: #fff;
     border-radius: 5px;
-    margin: 100px auto;
+    margin: 0 auto;
+    transform: translateY(-200px);
+    transition: transform .2s ease-in;
 
 
 }
