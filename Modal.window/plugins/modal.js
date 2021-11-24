@@ -1,20 +1,15 @@
 function _createModal(options) {
+    const DEFAULT_WIDTH = '600px'
     const modal = document.createElement('div')
-
     modal.classList.add('nmodal')
-
     modal.insertAdjacentHTML('afterbegin', `
         <div class="modal-overlay">
-            <div class="modal-window">
+            <div class="modal-window" style="width: ${options.width || DEFAULT_WIDTH}">
                 <div class="modal-header">
-                    <div class="modal-title">Modal window</div>
-                    <div class="modal-close">
-                        <span>&times;</span>
-                    </div>
-                </div>
+                    <span class="modal-title">${options.title || 'Окно'}</span>
+                    ${options.closable ? `<span class="modal-close">&times;</span>` : ''}
                 <div class="modal-body">
-                    <p>Lorem ipsum dolor sit.</p>
-                    <p>Lorem ipsum dolor sit.</p>
+                    ${options.content || ''}
                 </div>
                 <div class="modal-footer">
                     <button>Ok</button>
