@@ -3,11 +3,11 @@ function _createModal(options) {
     const modal = document.createElement('div')
     modal.classList.add('nmodal')
     modal.insertAdjacentHTML('afterbegin', `
-        <div class="modal-overlay">
+        <div class="modal-overlay" data-close="true">
             <div class="modal-window" style="width: ${options.width || DEFAULT_WIDTH}">
                 <div class="modal-header">
                     <span class="modal-title">${options.title || 'Окно'}</span>
-                    ${options.closable ? `<span class="modal-close">&times;</span>` : ''}
+                    ${options.closable ? `<span class="modal-close" data-close="true">&times;</span>` : ''}
                 <div class="modal-body">
                     ${options.content || ''}
                 </div>
@@ -29,20 +29,34 @@ $.modal = function (options) {
     const ANIMATION_SPEED = 200
     const modal = _createModal(options)
     let closing = false
+    let destroyed = false
 
-    return {
+    const modal = {
         open() {
-           !closing && modal.classList.add('open')
-        },
-        close() {
-            closing = true
-            $modal.classList.remove('open')
-            $modal.classList.add('hide')
-            setTimeout(() =>{
-                $modal.classList.remove('hide')
-                closing = false
-            }, ANIMATION_SPEED)
-        },
-        destroy() { }
-    }
+            !closing && modal.classList.add('open')
+         },
+         close() {
+             closing = true
+             $modal.classList.remove('open')
+             $modal.classList.add('hide')
+             setTimeout(() =>{
+                 $modal.classList.remove('hide')
+                 closing = false
+             }, ANIMATION_SPEED)
+         },
+        }
+
+    $modal.addEventListener('click', event => {
+        console.log('Clicked', event.target.dataset)
+        if (event.target.dataset.close) {
+            modal.close()
+        }
+    })
+
+    return Object.assign(modal, {
+        destroy() {
+            $modal.parentNode.removeChild($modal)
+            destroyed = true
+        }
+})
 }
