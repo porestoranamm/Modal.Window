@@ -64,7 +64,7 @@ $.modal = function (options) {
             destroyed = true
         },
         setContent(html) {
-            $modal.querySelector('data-content')
+            $modal.querySelector('[data-content]').innerHTML = html
         }
     })
 }
