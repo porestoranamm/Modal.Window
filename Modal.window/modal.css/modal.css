@@ -1,4 +1,5 @@
-.nmodal {}
+.nmodal {
+}
 
 .nmodal.open .modal-overlay,
 .nmodal.open .modal-window {

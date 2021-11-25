@@ -8,7 +8,7 @@ function _createModal(options) {
                 <div class="modal-header">
                     <span class="modal-title">${options.title || 'Окно'}</span>
                     ${options.closable ? `<span class="modal-close" data-close="true">&times;</span>` : ''}
-                <div class="modal-body">
+                <div class="modal-body" data-content>
                     ${options.content || ''}
                 </div>
                 <div class="modal-footer">
@@ -33,30 +33,38 @@ $.modal = function (options) {
 
     const modal = {
         open() {
+            if (destroyed) {
+                return console.log('Modal is destroyed')
+            }
             !closing && modal.classList.add('open')
-         },
-         close() {
-             closing = true
-             $modal.classList.remove('open')
-             $modal.classList.add('hide')
-             setTimeout(() =>{
-                 $modal.classList.remove('hide')
-                 closing = false
-             }, ANIMATION_SPEED)
-         },
-        }
+        },
+        close() {
+            closing = true
+            $modal.classList.remove('open')
+            $modal.classList.add('hide')
+            setTimeout(() => {
+                $modal.classList.remove('hide')
+                closing = false
+            }, ANIMATION_SPEED)
+        },
+    }
 
-    $modal.addEventListener('click', event => {
-        console.log('Clicked', event.target.dataset)
+    const listener = event => {
         if (event.target.dataset.close) {
             modal.close()
         }
-    })
+    }
+
+    $modal.addEventListener('click', listener)
 
     return Object.assign(modal, {
         destroy() {
             $modal.parentNode.removeChild($modal)
+            $modal.removeEventListener('click', listener)
             destroyed = true
+        },
+        setContent(html) {
+            $modal.querySelector('data-content')
         }
-})
+    })
 }
