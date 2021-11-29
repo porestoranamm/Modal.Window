@@ -8,6 +8,9 @@ const modal = $.modal({
     footerButtons: [
         {text: 'Ok', type: 'primary', handler() {
             console.log('Primary btn clicked')
+        }},
+        {text: 'Cancel', type: 'primary', handler() {
+            console.log('Danger btn clicked')
         }}
     ]
 })
