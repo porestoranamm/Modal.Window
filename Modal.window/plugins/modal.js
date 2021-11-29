@@ -1,3 +1,12 @@
+function _createModalFooter(buttons = []) {
+    if (buttons.length === 0) {
+        return document.createElement('div')
+    }
+
+    const wrap = document.createElement('div')
+    wrap.classList.add('modal-footer')
+}
+
 function _createModal(options) {
     const DEFAULT_WIDTH = '600px'
     const modal = document.createElement('div')
@@ -11,13 +20,9 @@ function _createModal(options) {
                 <div class="modal-body" data-content>
                     ${options.content || ''}
                 </div>
-                <div class="modal-footer">
-                    <button>Ok</button>
-                    <button>Cancel</button>
-                </div>
             </div>
         </div>`)
-
+    const footer = _createModalFooter(options.footerButtons)
     document.body.appendChild(modal)
 
     return modal
