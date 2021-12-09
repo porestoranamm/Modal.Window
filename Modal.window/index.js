@@ -10,7 +10,7 @@ const toHTML = toys => `
     <img class="card=img-top" style="height: 300px;" src="${toys.img}" alt="${fruit.title}">
     <div class="card-body">
       <h5 class="card-title">${toys.title}</h5>
-      <a href="#" class="btn btn-primary">Посмотреть цену</a>
+      <a href="#" class="btn btn-primary" data-btn="price" data-id="${toys.id}=>Посмотреть цену</a>
       <a href="#" class="btn btn-danger">Удалить</a>
     </div>
   </div>
@@ -25,21 +25,29 @@ function render() {
 render()
 
 
-const modal = $.modal({
-    title: 'Best window modal',
+const priceModal = $.modal({
+    title: 'Цена на товар',
     closable: true,
-    content: `
-        <h4>Modal is working</h4>
-        <p>Lorem ipsum dolor sit.</p>`,
     width: '400px'
     footerButtons: [
-        {text: 'Ok', type: 'primary', handler() {
-            console.log('Primary btn clicked')
-            modal.closed()
+        {text: 'Закрыть', type: 'primary', handler() {
+            priceModal.close()
         }},
-        {text: 'Cancel', type: 'primary', handler() {
-            console.log('Danger btn clicked')
-            modal.closed()
-        }}
     ]
+})
+
+document.addEventListener('click', event => {
+    event.preventDefault()
+    const priceModal = event.target.dataset.btn
+    const id = +event.target.dataset.id
+    
+    if (btnType === 'price') {
+        const toys = toys.find(f => f.id ===id)
+        priceModal.setContent(`
+        <p>Цена на ${toys.title}: <strong>${toys.price}$</strong></p>`)
+        priceModal.open()
+        
+        console.log('toys')
+        
+    }
 })
