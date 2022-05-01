@@ -3,7 +3,7 @@ import TodoList from './Todo/TodoList';
 
 function App() {
   return (
-    <div>
+    <div className='wrapper'>
       <h1>React tutorial</h1>
     </div>
   )
