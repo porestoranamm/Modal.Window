@@ -24,7 +24,7 @@ const styles = {
                 {todo.title}
             </span>
         
-        <button>&times;</button>
+        <button className='rm'>&times;</button>
         </li>
     )
 }
