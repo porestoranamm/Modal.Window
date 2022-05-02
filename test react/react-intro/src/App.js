@@ -19,12 +19,19 @@ function App() {
     })
   }
 
+  function removeTodo(id) {
+    setTodos(todos.filter(todo => todo.id !== id))
+  }
+
+
   return (
+    <Context.Provider value={{}}>
     <div className='wrapper'>
       <h1>React tutorial</h1>
 
       <TodoList todos={todos} onToggle={toggleTodo} />
     </div>
+    </Context.Provider>
   )
   }
 
