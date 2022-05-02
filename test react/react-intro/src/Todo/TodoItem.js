@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import PropTypes from 'prop-types'
 import Context from '../context'
 
@@ -17,6 +17,7 @@ const styles = {
 }
 
 function TodoItem({ todo, index, onChange }) {
+    const {} = useContext(Context)
     const classes = []
 
     if (todo.completed) {
