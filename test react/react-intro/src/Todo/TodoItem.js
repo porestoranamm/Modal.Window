@@ -17,7 +17,7 @@ const styles = {
 }
 
 function TodoItem({ todo, index, onChange }) {
-    const {} = useContext(Context)
+    const { removeTodo} = useContext(Context)
     const classes = []
 
     if (todo.completed) {
@@ -36,7 +36,9 @@ function TodoItem({ todo, index, onChange }) {
                 {todo.title}
             </span>
         
-        <button className='rm'>&times;</button>
+        <button className='rm' onClick={removeTodo.bind(null, todo.id)}>
+            &times;
+            </button>
         </li>
     )
 }
